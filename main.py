@@ -26,21 +26,28 @@ FILE_LIST_LIMIT = 20  # 터미널에 나열할 최대 파일 수
 
 
 # ── 로그 (형식을 한 곳에서 통일) ──────────────────────────────────────────────
+#
+# flush=True가 붙어 있는 이유: 파이썬의 stdout은 터미널이면 줄 단위로, **파이프나
+# 파일로 넘기면 블록 단위(4KB)로** 버퍼링된다. 반면 stderr는 항상 즉시 나간다.
+# 그래서 `python main.py commit > log.txt 2>&1` 처럼 리다이렉트하면 stdout이
+# 종료 시점에 한꺼번에 쏟아지고, 그 사이에 나간 [ERROR]가 [INFO]보다 앞에 찍힌다.
+# 진행 로그와 오류의 순서가 뒤바뀌면 로그를 읽을 수 없으므로 매 줄 flush 한다.
 
 def info(msg: str) -> None:
-    print(f"[INFO] {msg}")
+    print(f"[INFO] {msg}", flush=True)
 
 
 def done(msg: str) -> None:
-    print(f"[DONE] {msg}")
+    print(f"[DONE] {msg}", flush=True)
 
 
 def warn(msg: str) -> None:
-    print(f"[WARN] {msg}")
+    print(f"[WARN] {msg}", flush=True)
 
 
 def error(msg: str) -> None:
-    print(f"[ERROR] {msg}", file=sys.stderr)
+    sys.stdout.flush()  # 앞선 진행 로그를 먼저 내보낸 뒤 오류를 찍는다
+    print(f"[ERROR] {msg}", file=sys.stderr, flush=True)
 
 
 # ── CLI ─────────────────────────────────────────────────────────────────────
@@ -177,9 +184,9 @@ def run(args: argparse.Namespace) -> int:
     # 기능 요구사항 1: "변경된 파일 목록을 확인할 수 있어야 한다".
     # 개수만 출력하면 사용자가 무엇이 프롬프트로 나가는지 알 수 없다.
     for f in ctx.files[:FILE_LIST_LIMIT]:
-        print(f"         - {f}")
+        print(f"         - {f}", flush=True)
     if len(ctx.files) > FILE_LIST_LIMIT:
-        print(f"         ... 외 {len(ctx.files) - FILE_LIST_LIMIT}개")
+        print(f"         ... 외 {len(ctx.files) - FILE_LIST_LIMIT}개", flush=True)
 
     if ctx.is_empty:
         info("변경 사항이 없습니다. 생성하지 않고 종료합니다.")
