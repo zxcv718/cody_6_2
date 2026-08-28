@@ -40,17 +40,6 @@ pip install -r requirements.txt
 
 키는 **환경변수로만** 읽습니다. 코드에 하드코딩하지 않으며, 프로그램은 설정 파일을 파싱하지 않습니다.
 
-### 3-1. 키 발급
-
-1. <https://usr.codyssey.kr/public-api-console> 접속
-2. **[API 키]** 탭 → **[+ 키 발급]**
-3. 라벨 입력 후 호환 방식 **Anthropic** 선택
-4. 표시된 키 원문을 복사
-
-> ⚠️ 키 원문은 **발급 직후 한 번만** 표시됩니다. 놓치면 폐기 후 재발급해야 합니다.
-
-### 3-2. 환경변수 등록
-
 ```bash
 export AI_API_KEY="sk-cody-live-YOUR_KEY"
 ```
