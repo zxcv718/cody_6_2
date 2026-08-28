@@ -309,6 +309,14 @@ main.py            CLI 조립 — 로직 없음, 계층을 연결만 한다
 
 계층을 나눈 이유는 [`docs/design-notes.md`](docs/design-notes.md)에 정리했습니다.
 
+### 문서 안내
+
+| 문서 | 내용 |
+|---|---|
+| [`docs/qna.md`](docs/qna.md) | 평가항목표 18개 항목별 답변 (한 줄 답 → 근거 → 확인 방법) |
+| [`docs/design-notes.md`](docs/design-notes.md) | 설계 배경 상세 — 왜 이 구조를 골랐는가 |
+| [`docs/verification.md`](docs/verification.md) | 기능별 실행 증빙, 마스킹 오탐 테스트 14케이스 |
+
 ---
 
 ## 7. 민감정보 대응 (safe-mode)
