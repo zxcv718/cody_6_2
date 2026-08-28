@@ -1,0 +1,15 @@
+# 환경변수 — API 키가 절대 커밋되지 않도록 최우선 차단
+.env
+.env.local
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# 도구 산출물
+.DS_Store
+.pytest_cache/
