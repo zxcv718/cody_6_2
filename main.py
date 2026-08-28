@@ -88,7 +88,8 @@ def build_parser() -> argparse.ArgumentParser:
             "-max-tokens", "--max-tokens", dest="max_tokens",
             type=int, default=None,
             help=f"출력 토큰 상한 (기본: commit {DEFAULT_MAX_TOKENS['commit']}, "
-                 f"pr {DEFAULT_MAX_TOKENS['pr']}). 길이 조절기가 아니라 절단기",
+                 f"pr {DEFAULT_MAX_TOKENS['pr']}). 출력 길이의 천장 — "
+                 "자연 출력보다 낮으면 문장 중간에서 끊긴다",
         )
         p.add_argument(
             "--scope", choices=("all", "staged", "unstaged"), default="all",
